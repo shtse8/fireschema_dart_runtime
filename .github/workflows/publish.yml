@@ -1,0 +1,41 @@
+# .github/workflows/publish.yml in fireschema_dart_runtime repo
+name: Publish Package to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger on version tags like v1.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for authentication with pub.dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable # Use the latest stable Dart SDK
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Verify package health (optional but recommended)
+        run: |
+          dart analyze # Check for static analysis issues
+          dart format --output=none --set-exit-if-changed . # Check formatting
+          # dart pub publish --dry-run # Optional: Dry run publish
+
+      - name: Run tests
+        run: dart test # Assumes tests are configured
+
+      - name: Publish package
+        uses: k-paxian/dart-package-publisher@v1.5.1
+        with:
+          credentialJson: ${{ secrets.PUB_CREDENTIAL_JSON }} # Requires PUB_CREDENTIAL_JSON secret in repo settings
+          # Alternatively, use OIDC: https://github.com/k-paxian/dart-package-publisher#openid-connect-oidc-recommended
+          # skipTests: true # Tests are run in the previous step
