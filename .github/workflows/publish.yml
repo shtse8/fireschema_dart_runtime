@@ -41,7 +41,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: dart test
+        run: flutter test
 
       # Publish package to pub.dev
       # Ensure PUB_DEV_PUBLISH_ACCESS_TOKEN, PUB_DEV_PUBLISH_REFRESH_TOKEN, 
