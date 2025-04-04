@@ -166,16 +166,19 @@ class TestSubCollection extends BaseCollectionRef<SubTestData, SubTestAddData> {
 void main() {
   TestWidgetsFlutterBinding
       .ensureInitialized(); // Ensure binding is initialized for Firebase
+  // await Firebase.initializeApp(); // Moved back to setUpAll
   // IntegrationTestWidgetsFlutterBinding.ensureInitialized(); // Removed Flutter-specific binding
 
   late FirebaseFirestore firestore;
   late TestCollection testCollection;
 
   setUpAll(() async {
+    // Ensure setUpAll is async
     // Ensure Firebase is initialized (required for integration tests)
-    // await Firebase.initializeApp(); // Moved to main()
+    await Firebase.initializeApp(); // Initialize Firebase inside setUpAll
 
     // Initialize Firestore
+    // Initialize Firestore after Firebase App is initialized
     firestore = FirebaseFirestore.instance;
     if (useEmulator) {
       print(

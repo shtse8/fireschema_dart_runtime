@@ -407,16 +407,15 @@ class IntegrationTestCollectionRef
 void main() async {
   // Mark main as async
   TestWidgetsFlutterBinding.ensureInitialized(); // Needed for platform channels
-  await Firebase.initializeApp(); // Initialize Firebase here, outside setUpAll
 
   late FirebaseFirestore firestore; // Use real Firestore
   late IntegrationTestCollectionRef testCollection;
 
   setUpAll(() async {
+    // Ensure setUpAll is async
     // Initialize Firebase and connect to Emulator
-    TestWidgetsFlutterBinding
-        .ensureInitialized(); // Needed for platform channels
-    // await Firebase.initializeApp(); // Moved to main()
+    // TestWidgetsFlutterBinding.ensureInitialized(); // Keep in main()
+    await Firebase.initializeApp(); // Initialize Firebase inside setUpAll
     firestore = FirebaseFirestore.instance;
     firestore.useFirestoreEmulator('localhost', 8080);
     print('Using Firestore Emulator at localhost:8080');
