@@ -173,7 +173,7 @@ void main() {
 
   setUpAll(() async {
     // Ensure Firebase is initialized (required for integration tests)
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp(); // Moved to main()
 
     // Initialize Firestore
     firestore = FirebaseFirestore.instance;
