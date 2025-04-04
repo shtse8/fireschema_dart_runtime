@@ -412,6 +412,8 @@ void main() {
 
   setUpAll(() async {
     // Initialize Firebase and connect to Emulator
+    TestWidgetsFlutterBinding
+        .ensureInitialized(); // Needed for platform channels
     await Firebase.initializeApp();
     firestore = FirebaseFirestore.instance;
     firestore.useFirestoreEmulator('localhost', 8080);
