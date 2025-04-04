@@ -416,6 +416,8 @@ void main() async {
     // Initialize Firebase and connect to Emulator
     // TestWidgetsFlutterBinding.ensureInitialized(); // Keep in main()
     await Firebase.initializeApp(); // Initialize Firebase inside setUpAll
+    await Future.delayed(
+        const Duration(seconds: 1)); // Add delay for channel initialization
     // firestore = FirebaseFirestore.instance; // Moved to setUp
     // firestore.useFirestoreEmulator('localhost', 8080); // Moved to setUp
     // print('Using Firestore Emulator at localhost:8080'); // Moved to setUp

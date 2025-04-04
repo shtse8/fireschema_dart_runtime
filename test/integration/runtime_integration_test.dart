@@ -176,6 +176,8 @@ void main() {
     // Ensure setUpAll is async
     // Ensure Firebase is initialized (required for integration tests)
     await Firebase.initializeApp(); // Initialize Firebase inside setUpAll
+    await Future.delayed(
+        const Duration(seconds: 1)); // Add delay for channel initialization
 
     // Initialize Firestore
     // Firestore instance and collection will be initialized in setUp
