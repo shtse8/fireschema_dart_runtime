@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart'; // Needed for real Firebase
 // import 'package:fake_cloud_firestore/fake_cloud_firestore.dart'; // No longer using fake
 import 'package:fireschema_dart_runtime/fireschema_dart_runtime.dart';
 import 'package:flutter_test/flutter_test.dart'; // Still needed for test functions
+import 'package:integration_test/integration_test.dart'; // Import integration_test
 // import 'package:mockito/mockito.dart'; // Removed unused import
 // import 'package:plugin_platform_interface/plugin_platform_interface.dart'; // Removed unused import
 // import 'package:test/test.dart' hide ...; // Removed unnecessary import
@@ -406,7 +407,8 @@ class IntegrationTestCollectionRef
 
 void main() async {
   // Mark main as async
-  TestWidgetsFlutterBinding.ensureInitialized(); // Needed for platform channels
+  IntegrationTestWidgetsFlutterBinding
+      .ensureInitialized(); // Use IntegrationTest binding
   await Firebase
       .initializeApp(); // Initialize Firebase here, once per file execution
 

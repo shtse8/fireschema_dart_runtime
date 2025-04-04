@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fireschema_dart_runtime/fireschema_dart_runtime.dart';
 // import 'package:fireschema_dart_runtime/src/types.dart'; // Removed unnecessary import
 import 'package:flutter_test/flutter_test.dart'; // Keep for expect, group etc.
-// Removed integration_test import
+import 'package:integration_test/integration_test.dart'; // Import integration_test
 
 // --- Test Setup ---
 const String firestoreEmulatorHost = '127.0.0.1';
@@ -165,8 +165,8 @@ class TestSubCollection extends BaseCollectionRef<SubTestData, SubTestAddData> {
 // --- Test Main ---
 void main() async {
   // Mark main as async
-  TestWidgetsFlutterBinding
-      .ensureInitialized(); // Ensure binding is initialized for Firebase
+  IntegrationTestWidgetsFlutterBinding
+      .ensureInitialized(); // Use IntegrationTest binding
   await Firebase
       .initializeApp(); // Initialize Firebase here, once per file execution
   // await Firebase.initializeApp(); // Moved back to setUpAll

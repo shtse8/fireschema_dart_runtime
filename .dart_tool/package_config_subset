@@ -210,6 +210,10 @@ path
 3.4
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.1/
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.1/lib/
+platform
+3.2
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.6/
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.6/lib/
 plugin_platform_interface
 3.0
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8/
@@ -218,6 +222,10 @@ pool
 2.12
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/pool-1.5.1/
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/pool-1.5.1/lib/
+process
+3.3
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/process-5.0.3/
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/process-5.0.3/lib/
 pub_semver
 3.4
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/pub_semver-2.2.0/
@@ -278,6 +286,10 @@ string_scanner
 3.1
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.4.1/
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.4.1/lib/
+sync_http
+2.12
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/sync_http-0.3.1/
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/sync_http-0.3.1/lib/
 term_glyph
 3.1
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.2/
@@ -326,6 +338,10 @@ web_socket_channel
 3.3
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-3.0.2/
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-3.0.2/lib/
+webdriver
+3.1
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/webdriver-3.0.4/
+file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/webdriver-3.0.4/lib/
 webkit_inspection_protocol
 3.0
 file:///C:/Users/shtse/AppData/Local/Pub/Cache/hosted/pub.dev/webkit_inspection_protocol-1.2.1/
@@ -346,6 +362,10 @@ flutter
 3.7
 file:///C:/Users/shtse/flutter/packages/flutter/
 file:///C:/Users/shtse/flutter/packages/flutter/lib/
+flutter_driver
+3.7
+file:///C:/Users/shtse/flutter/packages/flutter_driver/
+file:///C:/Users/shtse/flutter/packages/flutter_driver/lib/
 flutter_test
 3.7
 file:///C:/Users/shtse/flutter/packages/flutter_test/
@@ -354,4 +374,12 @@ flutter_web_plugins
 3.7
 file:///C:/Users/shtse/flutter/packages/flutter_web_plugins/
 file:///C:/Users/shtse/flutter/packages/flutter_web_plugins/lib/
+fuchsia_remote_debug_protocol
+3.7
+file:///C:/Users/shtse/flutter/packages/fuchsia_remote_debug_protocol/
+file:///C:/Users/shtse/flutter/packages/fuchsia_remote_debug_protocol/lib/
+integration_test
+3.7
+file:///C:/Users/shtse/flutter/packages/integration_test/
+file:///C:/Users/shtse/flutter/packages/integration_test/lib/
 2

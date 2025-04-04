@@ -175,8 +175,7 @@ void main() {
     });
 
     test('applyDefaults adds serverTimestamp when field is missing', () {
-      final collectionWithSchema =
-          TestCollection(fakeFirestore, schema: schemaWithDefaults);
+      // final collectionWithSchema = TestCollection(fakeFirestore, schema: schemaWithDefaults); // Removed unused variable
       final data =
           TestAddData(name: 'Test Name', value: 10); // createdAt is missing
       // Call toJson() before passing to applyDefaults
@@ -192,8 +191,7 @@ void main() {
     });
 
     test('applyDefaults adds numeric default when field is missing', () {
-      final collectionWithSchema =
-          TestCollection(fakeFirestore, schema: schemaWithDefaults);
+      // final collectionWithSchema = TestCollection(fakeFirestore, schema: schemaWithDefaults); // Removed unused variable
       // Provide name, omit value
       // Provide value as it's required by TestAddData constructor
       final data = TestAddData(
@@ -211,8 +209,7 @@ void main() {
     });
 
     test('applyDefaults does not overwrite existing values', () {
-      final collectionWithSchema =
-          TestCollection(fakeFirestore, schema: schemaWithDefaults);
+      // final collectionWithSchema = TestCollection(fakeFirestore, schema: schemaWithDefaults); // Removed unused variable
       final data = TestAddData(name: 'Test Name', value: 123); // Provide value
       // Call toJson() before passing to applyDefaults
       final dataWithDefaults =

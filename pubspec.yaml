@@ -23,3 +23,5 @@ dev_dependencies:
   mockito: ^5.4.5
   plugin_platform_interface: ^2.1.8 # Added
   test: ^1.21.0
+  integration_test:
+    sdk: flutter
