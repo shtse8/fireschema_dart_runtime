@@ -416,23 +416,31 @@ void main() async {
     // Initialize Firebase and connect to Emulator
     // TestWidgetsFlutterBinding.ensureInitialized(); // Keep in main()
     await Firebase.initializeApp(); // Initialize Firebase inside setUpAll
-    firestore = FirebaseFirestore.instance;
-    firestore.useFirestoreEmulator('localhost', 8080);
-    print('Using Firestore Emulator at localhost:8080');
+    // firestore = FirebaseFirestore.instance; // Moved to setUp
+    // firestore.useFirestoreEmulator('localhost', 8080); // Moved to setUp
+    // print('Using Firestore Emulator at localhost:8080'); // Moved to setUp
   });
 
   setUp(() async {
+    // Initialize Firestore and collection before each test
+    firestore = FirebaseFirestore.instance;
+    try {
+      firestore.useFirestoreEmulator('localhost', 8080);
+    } catch (e) {
+      print('Emulator already configured? Error: $e');
+    }
     testCollection = IntegrationTestCollectionRef(firestore: firestore);
+
     // Clear collection before each test using the real instance
     final snapshot =
         await testCollection.ref.limit(500).get(); // Increase limit for safety
-    final batch = firestore.batch();
-    for (final doc in snapshot.docs) {
-      batch.delete(doc.reference); // Use .reference for Dart SDK
+    if (snapshot.docs.isNotEmpty) {
+      final batch = firestore.batch();
+      for (final doc in snapshot.docs) {
+        batch.delete(doc.reference); // Use .reference for Dart SDK
+      }
+      await batch.commit();
     }
-    // Delay might not be needed for fake, but harmless
-    await Future.delayed(const Duration(milliseconds: 10));
-    await batch.commit();
   });
 
   group('Dart Runtime Integration Tests (using Firestore Emulator)', () {

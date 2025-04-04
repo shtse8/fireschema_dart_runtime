@@ -178,23 +178,30 @@ void main() {
     await Firebase.initializeApp(); // Initialize Firebase inside setUpAll
 
     // Initialize Firestore
-    // Initialize Firestore after Firebase App is initialized
+    // Firestore instance and collection will be initialized in setUp
+
+    // Initial cleanup needs firestore instance, move it after initialization
+    print('Performing initial cleanup of integration test collection...');
+    // await cleanupTestCollection(firestore, testCollection); // Moved cleanup
+    // print('Initial cleanup complete.');
+  });
+
+  // Initialize Firestore and collection before each test
+  setUp(() async {
     firestore = FirebaseFirestore.instance;
     if (useEmulator) {
-      print(
-          'Using Firestore emulator at $firestoreEmulatorHost:$firestoreEmulatorPort');
-      firestore.useFirestoreEmulator(
-          firestoreEmulatorHost, firestoreEmulatorPort);
-    } else {
-      print('Using live Firestore instance.');
+      // Ensure emulator connection for each test if needed, though setUpAll should suffice
+      try {
+        firestore.useFirestoreEmulator(
+            firestoreEmulatorHost, firestoreEmulatorPort);
+      } catch (e) {
+        // Ignore errors if emulator is already configured (might happen on reruns)
+        print('Emulator already configured? Error: $e');
+      }
     }
     testCollection = TestCollection(firestore);
-
-    // Initial cleanup
-    print('Performing initial cleanup of integration test collection...');
-    await cleanupTestCollection(
-        firestore, testCollection); // Pass firestore instance
-    print('Initial cleanup complete.');
+    // Perform cleanup before each test now
+    await cleanupTestCollection(firestore, testCollection);
   });
 
   // Cleanup after each test
