@@ -417,23 +417,23 @@ void main() async {
 
   setUpAll(() async {
     // Ensure setUpAll is async
-    // Initialize Firebase and connect to Emulator
-    // TestWidgetsFlutterBinding.ensureInitialized(); // Keep in main()
-    // await Firebase.initializeApp(); // Moved to main()
-    // await Future.delayed(const Duration(seconds: 1)); // Remove delay
-    // firestore = FirebaseFirestore.instance; // Moved to setUp
-    // firestore.useFirestoreEmulator('localhost', 8080); // Moved to setUp
-    // print('Using Firestore Emulator at localhost:8080'); // Moved to setUp
-  });
+    // Firebase is initialized in main()
 
-  setUp(() async {
-    // Initialize Firestore and collection before each test
+    // Initialize Firestore and connect to emulator ONCE before all tests
     firestore = FirebaseFirestore.instance;
     try {
       firestore.useFirestoreEmulator('localhost', 8080);
+      print('Firestore emulator configured for host: localhost, port: 8080');
     } catch (e) {
-      print('Emulator already configured? Error: $e');
+      print('Error configuring emulator in setUpAll: $e');
+      // Consider failing if emulator setup fails critically
     }
+  });
+
+  setUp(() async {
+    // Initialize collection before each test (Firestore instance is ready from setUpAll)
+    // firestore = FirebaseFirestore.instance; // Moved to setUpAll
+    // Emulator connection moved to setUpAll
     testCollection = IntegrationTestCollectionRef(firestore: firestore);
 
     // Clear collection before each test using the real instance

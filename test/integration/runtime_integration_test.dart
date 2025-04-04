@@ -177,32 +177,33 @@ void main() async {
 
   setUpAll(() async {
     // Ensure setUpAll is async
-    // Ensure Firebase is initialized (required for integration tests)
-    // await Firebase.initializeApp(); // Moved to main()
-    // await Future.delayed(const Duration(seconds: 1)); // Remove delay
+    // Firebase is initialized in main()
 
-    // Initialize Firestore
-    // Firestore instance and collection will be initialized in setUp
-
-    // Initial cleanup needs firestore instance, move it after initialization
-    print('Performing initial cleanup of integration test collection...');
-    // await cleanupTestCollection(firestore, testCollection); // Moved cleanup
-    // print('Initial cleanup complete.');
-  });
-
-  // Initialize Firestore and collection before each test
-  setUp(() async {
+    // Initialize Firestore and connect to emulator ONCE before all tests
     firestore = FirebaseFirestore.instance;
     if (useEmulator) {
-      // Ensure emulator connection for each test if needed, though setUpAll should suffice
       try {
         firestore.useFirestoreEmulator(
             firestoreEmulatorHost, firestoreEmulatorPort);
+        print(
+            'Firestore emulator configured for host: $firestoreEmulatorHost, port: $firestoreEmulatorPort');
       } catch (e) {
-        // Ignore errors if emulator is already configured (might happen on reruns)
-        print('Emulator already configured? Error: $e');
+        print('Error configuring emulator in setUpAll: $e');
+        // Consider failing if emulator setup fails critically
       }
     }
+
+    // Initial cleanup can now happen here if needed, but setUp cleanup is likely sufficient
+    // print('Performing initial cleanup of integration test collection...');
+    // await cleanupTestCollection(firestore, TestCollection(firestore)); // Need to instantiate collection for cleanup
+    // print('Initial cleanup complete.');
+  });
+
+  // Initialize collection before each test (Firestore instance is ready from setUpAll)
+  setUp(() async {
+    // firestore = FirebaseFirestore.instance; // Moved to setUpAll
+    // Emulator connection moved to setUpAll
+
     testCollection = TestCollection(firestore);
     // Perform cleanup before each test now
     await cleanupTestCollection(firestore, testCollection);
