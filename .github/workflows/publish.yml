@@ -27,7 +27,7 @@ jobs:
 
       # Optional: Analyze code
       - name: Analyze project source
-        run: flutter analyze --fatal-infos=false --fatal-warnings=false
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
 
       # Install Firebase CLI (needed for emulator)
       - name: Install Firebase CLI
