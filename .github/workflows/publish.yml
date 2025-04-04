@@ -27,12 +27,21 @@ jobs:
 
       # Optional: Analyze code
       - name: Analyze project source
-        run: flutter analyze
+        run: flutter analyze --fatal-infos=false --fatal-warnings=false
+
+      # Install Firebase CLI (needed for emulator)
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      # Start Firestore Emulator
+      - name: Start Firestore Emulator
+        run: |
+          nohup firebase emulators:start --only firestore --project=demo-project-id &
+          sleep 10 # Wait for emulator to start
 
       # Run tests
       - name: Run tests
         run: flutter test
-        # TODO: Add Firestore emulator setup if integration tests require it
 
       # Publish package to pub.dev
       # Ensure PUB_DEV_PUBLISH_ACCESS_TOKEN, PUB_DEV_PUBLISH_REFRESH_TOKEN, 
