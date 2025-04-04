@@ -1,41 +1,50 @@
 # .github/workflows/publish.yml in fireschema_dart_runtime repo
-name: Publish Package to pub.dev
+name: Publish Dart Runtime
 
 on:
   push:
     tags:
-      - 'v*.*.*' # Trigger on version tags like v1.0.0
+      - 'v*.*.*' # Trigger on version tags like v1.2.3
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # Required for authentication with pub.dev
+      id-token: write # Required for publishing to pub.dev
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Dart SDK
-        uses: dart-lang/setup-dart@v1
+      # Setup Flutter environment (includes Dart)
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          sdk: stable # Use the latest stable Dart SDK
+          channel: 'stable' # Or the channel your package supports
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
-      - name: Verify package health (optional but recommended)
-        run: |
-          dart analyze # Check for static analysis issues
-          dart format --output=none --set-exit-if-changed . # Check formatting
-          # dart pub publish --dry-run # Optional: Dry run publish
+      # Optional: Analyze code
+      - name: Analyze project source
+        run: flutter analyze
 
+      # Run tests
       - name: Run tests
-        run: dart test # Assumes tests are configured
+        run: flutter test
+        # TODO: Add Firestore emulator setup if integration tests require it
 
-      - name: Publish package
+      # Publish package to pub.dev
+      # Ensure PUB_DEV_PUBLISH_ACCESS_TOKEN, PUB_DEV_PUBLISH_REFRESH_TOKEN, 
+      # and PUB_DEV_PUBLISH_ID_TOKEN are configured as secrets in the repository settings.
+      # See: https://github.com/marketplace/actions/publish-dart-flutter-package
+      - name: Publish to pub.dev
         uses: k-paxian/dart-package-publisher@v1.5.1
         with:
-          credentialJson: ${{ secrets.PUB_CREDENTIAL_JSON }} # Requires PUB_CREDENTIAL_JSON secret in repo settings
-          # Alternatively, use OIDC: https://github.com/k-paxian/dart-package-publisher#openid-connect-oidc-recommended
-          # skipTests: true # Tests are run in the previous step
+          accessToken: ${{ secrets.PUB_DEV_PUBLISH_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.PUB_DEV_PUBLISH_REFRESH_TOKEN }}
+          idToken: ${{ secrets.PUB_DEV_PUBLISH_ID_TOKEN }}
+          # Optional: Use 'flutter pub publish --dry-run' first for testing
+          # dryRun: true 
+          # Optional: Skip validation checks if needed (not recommended)
+          # skipValidation: true

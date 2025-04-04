@@ -1,0 +1,32 @@
+# Dart & Flutter
+.dart_tool/
+.packages
+build/
+
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Pub
+.pub-cache/
+pubspec.lock
+
+# Build artifacts
+*.a
+*.apk
+*.app
+*.dylib
+*.framework
+*.ipa
+*.jar
+*.so
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+
+# OS specific files
+.DS_Store
+._*
+Thumbs.db
