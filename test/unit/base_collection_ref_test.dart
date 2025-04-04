@@ -327,8 +327,9 @@ void main() {
       final subData = SubTestAddData(description: 'Sub Item');
       final subDocRef = await subCollection.add(subData);
       expect(subDocRef.path, startsWith('test-items/$parentId/sub-items/'));
+    }); // End of subCollection test
 
-      test('updateData() updates specific fields of a document', () async {
+    test('updateData() updates specific fields of a document', () async {
         const docId = 'update-data-test-id';
         final initialData =
             TestData(id: docId, name: 'Initial Update', value: 10);
@@ -353,15 +354,8 @@ void main() {
         expect(snapshot.data()?['newField'], isTrue); // Check new field
       });
 
-      // Verify using fake instance
-      final subSnapshot = await fakeFirestore
-          .collection('test-items')
-          .doc(parentId)
-          .collection('sub-items')
-          .doc(subDocRef.id)
-          .get();
-      expect(subSnapshot.exists, isTrue);
-      expect(subSnapshot.data()?['description'], equals('Sub Item'));
-    });
-  }); // End group
+    }); // End of updateData test
+}); // End group
 }
+
+

@@ -68,12 +68,13 @@ abstract class BaseCollectionRef<TData, TAddData extends ToJsonSerializable> {
       fields.forEach((fieldName, fieldDef) {
         final def = fieldDef as FieldSchema?; // Cast to expected type
         final defaultValue = def?['defaultValue'];
-        // Check if the field is missing in the input data
-        if (dataWithDefaults[fieldName] == null && defaultValue != null) {
+        // Apply default value if the field is null or missing in the input data
+        if (defaultValue != null && dataWithDefaults[fieldName] == null) {
           if (defaultValue == 'serverTimestamp') {
+            // Apply serverTimestamp only if field is truly missing or null
             dataWithDefaults[fieldName] = FieldValue.serverTimestamp();
           } else {
-            // Assign any other non-null defaultValue directly (covers primitives, lists, maps)
+            // Apply other defaults if field is null or missing
             dataWithDefaults[fieldName] = defaultValue;
           }
         }

@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart'; // Keep for potential fallback or comparison
 import 'package:fireschema_dart_runtime/fireschema_dart_runtime.dart';
@@ -168,6 +170,9 @@ void main() {
   late TestCollection testCollection;
 
   setUpAll(() async {
+    // Ensure Firebase is initialized (required for integration tests)
+    await Firebase.initializeApp();
+
     // Initialize Firestore
     firestore = FirebaseFirestore.instance;
     if (useEmulator) {
