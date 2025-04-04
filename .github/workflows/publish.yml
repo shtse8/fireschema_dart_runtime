@@ -3,8 +3,10 @@ name: Publish Dart Runtime
 
 on:
   push:
-    tags:
-      - 'v*.*.*' # Trigger on version tags like v1.2.3
+    branches:
+      - main # Temporarily trigger on main branch pushes for testing
+    # tags:
+    #   - 'v*.*.*' # Original trigger on version tags
 
 jobs:
   publish:
