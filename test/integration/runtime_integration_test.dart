@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart'; // Keep for potential fallback or comparison
+// import 'package:fake_cloud_firestore/fake_cloud_firestore.dart'; // Keep for potential fallback or comparison - Removed unused import
 import 'package:fireschema_dart_runtime/fireschema_dart_runtime.dart';
-import 'package:fireschema_dart_runtime/src/types.dart';
+// import 'package:fireschema_dart_runtime/src/types.dart'; // Removed unnecessary import
 import 'package:flutter_test/flutter_test.dart'; // Keep for expect, group etc.
 // Removed integration_test import
 
@@ -187,13 +187,15 @@ void main() {
 
     // Initial cleanup
     print('Performing initial cleanup of integration test collection...');
-    await cleanupTestCollection(testCollection);
+    await cleanupTestCollection(
+        firestore, testCollection); // Pass firestore instance
     print('Initial cleanup complete.');
   });
 
   // Cleanup after each test
   tearDown(() async {
-    await cleanupTestCollection(testCollection);
+    await cleanupTestCollection(
+        firestore, testCollection); // Pass firestore instance
   });
 
   group('Dart Runtime Integration Tests', () {
@@ -295,7 +297,8 @@ void main() {
         expect(names, containsAll(['Query Where A', 'Query Where C']));
         expect(names, isNot(contains('Query Where B')));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -318,7 +321,8 @@ void main() {
         expect(results[0].name, equals('Apple'));
         expect(results[1].name, equals('Mango'));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -340,7 +344,8 @@ void main() {
         expect(results[0].name, equals('Third'));
         expect(results[1].name, equals('Fourth'));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -385,7 +390,8 @@ void main() {
         expect(snap.docs.map((d) => d.data().name),
             containsAll(['Val10', 'Val30']));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -405,7 +411,8 @@ void main() {
         expect(snap.docs.map((d) => d.data().name), containsAll(['A', 'C']));
         expect(snap.docs.map((d) => d.data().name), isNot(contains('B')));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -424,7 +431,8 @@ void main() {
         expect(snap.docs, hasLength(1));
         expect(snap.docs.first.data().name, equals('B'));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -447,7 +455,8 @@ void main() {
         expect(snap.docs.map((d) => d.data().name),
             containsAll(['Item 1', 'Item 3']));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -480,7 +489,8 @@ void main() {
         expect(snap.docs.map((d) => d.data().name),
             containsAll(['Item 1', 'Item 2', 'Item 3']));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -526,7 +536,8 @@ void main() {
         expect(snap.docs, hasLength(1));
         expect(snap.docs.first.data().name, equals('C'));
       } finally {
-        await cleanupTestCollection(testCollection);
+        await cleanupTestCollection(
+            firestore, testCollection); // Pass firestore instance
       }
     });
 
@@ -575,7 +586,7 @@ void main() {
 
     test('subcollection CRUD operations work', () async {
       const parentId = 'integration-parent-crud';
-      const subId1 = 'integration-sub-crud-1';
+      // const subId1 = 'integration-sub-crud-1'; // Removed unused variable
       const subId2 = 'integration-sub-crud-2';
 
       final parentData = TestData(id: parentId, name: 'Parent CRUD', value: 1);
@@ -679,13 +690,15 @@ void main() {
 }
 
 // Helper function to clear the test collection
-Future<void> cleanupTestCollection(TestCollection collection) async {
+Future<void> cleanupTestCollection(
+    FirebaseFirestore firestore, TestCollection collection) async {
+  // Add firestore parameter
   try {
     final snapshot = await collection.ref.limit(50).get(); // Limit batch size
     if (snapshot.docs.isEmpty) {
       return;
     }
-    final batch = collection.firestore.batch();
+    final batch = firestore.batch(); // Use the top-level firestore instance
     for (final doc in snapshot.docs) {
       batch.delete(doc.reference);
     }
@@ -693,7 +706,8 @@ Future<void> cleanupTestCollection(TestCollection collection) async {
     // Recursively call if more docs might exist
     if (snapshot.docs.length == 50) {
       print('WARN: Potentially more documents to clean up...');
-      await cleanupTestCollection(collection);
+      await cleanupTestCollection(
+          firestore, collection); // Pass firestore instance recursively
     }
   } catch (e) {
     print('Error during cleanup: $e');
