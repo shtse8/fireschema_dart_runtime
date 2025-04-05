@@ -43,7 +43,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: flutter test # Revert platform specification
+        run: flutter test --platform chrome # Try Chrome platform for integration tests
 
       # Publish package to pub.dev
       # Ensure PUB_DEV_PUBLISH_ACCESS_TOKEN, PUB_DEV_PUBLISH_REFRESH_TOKEN, 
