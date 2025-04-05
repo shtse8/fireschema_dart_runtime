@@ -39,11 +39,11 @@ jobs:
       - name: Start Firestore Emulator
         run: |
           nohup firebase emulators:start --only firestore --project=demo-project-id &
-          sleep 10 # Wait for emulator to start
+          sleep 20 # Wait longer for emulator to start in CI
 
       # Run tests
       - name: Run tests
-        run: flutter test --platform vm # Specify VM platform for integration tests
+        run: flutter test # Revert platform specification
 
       # Publish package to pub.dev
       # Ensure PUB_DEV_PUBLISH_ACCESS_TOKEN, PUB_DEV_PUBLISH_REFRESH_TOKEN, 
