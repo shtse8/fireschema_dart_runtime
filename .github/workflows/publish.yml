@@ -3,10 +3,10 @@ name: Publish Dart Runtime
 
 on:
   push:
-    branches:
-      - main # Temporarily trigger on main branch pushes for testing
-    # tags:
-    #   - 'v*.*.*' # Original trigger on version tags
+    # branches:
+    #   - main # Temporarily trigger on main branch pushes for testing
+    tags:
+      - 'v*.*.*' # Original trigger on version tags
 
 jobs:
   publish:
@@ -43,7 +43,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: flutter test --platform chrome # Try Chrome platform for integration tests
+        run: flutter test ./test/unit # Run only unit tests in CI
 
       # Publish package to pub.dev
       # Ensure PUB_DEV_PUBLISH_ACCESS_TOKEN, PUB_DEV_PUBLISH_REFRESH_TOKEN, 
