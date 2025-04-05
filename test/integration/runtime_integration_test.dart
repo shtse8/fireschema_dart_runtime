@@ -167,9 +167,7 @@ void main() async {
   // Mark main as async
   IntegrationTestWidgetsFlutterBinding
       .ensureInitialized(); // Use IntegrationTest binding
-  await Firebase
-      .initializeApp(); // Initialize Firebase here, once per file execution
-  // await Firebase.initializeApp(); // Moved back to setUpAll
+  // await Firebase.initializeApp(); // Moved to setUpAll
   // IntegrationTestWidgetsFlutterBinding.ensureInitialized(); // Removed Flutter-specific binding
 
   late FirebaseFirestore firestore;
@@ -177,7 +175,8 @@ void main() async {
 
   setUpAll(() async {
     // Ensure setUpAll is async
-    // Firebase is initialized in main()
+    // Initialize Firebase Core AFTER binding is initialized
+    await Firebase.initializeApp();
 
     // Initialize Firestore and connect to emulator ONCE before all tests
     firestore = FirebaseFirestore.instance;

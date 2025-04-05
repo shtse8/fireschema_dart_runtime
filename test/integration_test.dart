@@ -409,15 +409,15 @@ void main() async {
   // Mark main as async
   IntegrationTestWidgetsFlutterBinding
       .ensureInitialized(); // Use IntegrationTest binding
-  await Firebase
-      .initializeApp(); // Initialize Firebase here, once per file execution
+  // await Firebase.initializeApp(); // Moved to setUpAll
 
   late FirebaseFirestore firestore; // Use real Firestore
   late IntegrationTestCollectionRef testCollection;
 
   setUpAll(() async {
     // Ensure setUpAll is async
-    // Firebase is initialized in main()
+    // Initialize Firebase Core AFTER binding is initialized
+    await Firebase.initializeApp();
 
     // Initialize Firestore and connect to emulator ONCE before all tests
     firestore = FirebaseFirestore.instance;
