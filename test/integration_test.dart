@@ -407,17 +407,16 @@ class IntegrationTestCollectionRef
 
 void main() async {
   // Mark main as async
-  IntegrationTestWidgetsFlutterBinding
-      .ensureInitialized(); // Use IntegrationTest binding
-  // await Firebase.initializeApp(); // Moved to setUpAll
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase Core HERE, before any test setup
+  await Firebase.initializeApp();
 
   late FirebaseFirestore firestore; // Use real Firestore
   late IntegrationTestCollectionRef testCollection;
 
   setUpAll(() async {
     // Ensure setUpAll is async
-    // Initialize Firebase Core AFTER binding is initialized
-    await Firebase.initializeApp();
+    // Firebase Core is initialized in main() now
 
     // Initialize Firestore and connect to emulator ONCE before all tests
     firestore = FirebaseFirestore.instance;
@@ -827,5 +826,5 @@ void main() async {
         expect(retrievedData.count, equals(45));
       });
     }); // End Subcollections group
-  });
-}
+  }); // End group
+} // Close main async function
