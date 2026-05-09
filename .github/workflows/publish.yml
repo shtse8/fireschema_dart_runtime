@@ -50,7 +50,7 @@ jobs:
       # and PUB_DEV_PUBLISH_ID_TOKEN are configured as secrets in the repository settings.
       # See: https://github.com/marketplace/actions/publish-dart-flutter-package
       - name: Publish to pub.dev
-        uses: k-paxian/dart-package-publisher@v1.5.1
+        uses: k-paxian/dart-package-publisher@v1.6.1
         with:
           accessToken: ${{ secrets.PUB_DEV_PUBLISH_ACCESS_TOKEN }}
           refreshToken: ${{ secrets.PUB_DEV_PUBLISH_REFRESH_TOKEN }}
