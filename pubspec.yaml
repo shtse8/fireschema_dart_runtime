@@ -15,7 +15,7 @@ dependencies:
 
 dev_dependencies:
   cloud_firestore_platform_interface: ^6.2.5 # Added
-  fake_cloud_firestore: ^2.5.2
+  fake_cloud_firestore: ^4.0.0
   firebase_core: ^2.32.0 # Added
   flutter_test: # Added
     sdk: flutter
