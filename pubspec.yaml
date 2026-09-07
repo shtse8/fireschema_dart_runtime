@@ -19,7 +19,7 @@ dev_dependencies:
   firebase_core: ^2.32.0 # Added
   flutter_test: # Added
     sdk: flutter
-  lints: ^2.0.0
+  lints: ^6.0.0
   mockito: ^5.4.5
   plugin_platform_interface: ^2.1.8 # Added
   test: ^1.21.0
